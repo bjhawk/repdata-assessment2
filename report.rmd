@@ -1,0 +1,97 @@
+```{r, setoptions,echo=FALSE}
+opts_chunk$set(echo = TRUE, fig.width=8, fig.height=8)
+```
+Impact of Hydro-Meteorological Events, US 1950-2011
+===================================================
+
+
+###Synopsis:  
+    The impact of a storm can range from insignificant to immense. In this document
+    we attempt to take a cursory glance through what might be the most impactful
+    storm types according to all the data the NOAA has to offer from 1950 through 2011.
+  
+
+##Data Processing:
+	To begin with, our data comes in the form of a rather large Comma Separated Value file.
+	Roughly half a gigabyte, this file contains just over 900 thousand observation,
+  spaning just over 60 years. The data for the last 20 or 30 years is considerably,
+  and understandably,	more complete.  
+
+	To begin with we will need to take the data from it's raw text form and bring it into R
+	to start our analysis. We will be using the `data.table` package to make our processing
+  faster after our initial read.  
+  You'll note I'm using the `base` packages' `read.csv()` function and then immediately
+  turning that `data.frame` into a `data.table`. This is because there is a known and
+  tracked bug when using `fread` to read .csv files that have irregular usage of commas
+  inside escaped blocks of text. That being said, the method below only takes a fractional
+  amount of time more and will yeild considerably faster processing below:  
+```{r read.data, cache=TRUE}
+library(data.table)
+data <- data.table(read.csv('stormdata.csv'))
+```
+
+  Next, we will begin the actual processing of our data. First, we are going to convert
+  the data that corresponds with the fiscal impact of an event into whole numbers.
+  Having seen the original data, there seems to be some mis-translation of the original
+  numbers into the form our current csv file has. We will be doing our best to accomodate
+  and take only what we know for certain at face value:  
+```{r process.dmg, cache=TRUE}
+# First we'll give ourselves something like a row number to work our data with
+data[,r:=1:.N]
+
+# Each of the blocks below follow the same functionality.
+# Loop through all values of a given variable (PROPDMG or CROPDMG), and
+# use the data in the corresponding "*EXP" variable to convert that into
+# a whole number. If a number is NA, we are going to record it as 0, this has
+# not been found to skew our results at all. If the exponent recorded is not
+# one of a clearly defined few (this is where that uncertainty I mentioned  from
+# the original data sources comes in) we are going to just take the value as it is.
+data[,PROPDMG:={
+    if (PROPDMGEXP == 'b' | PROPDMGEXP =='B') {
+        PROPDMG*1000000000
+    } else if (PROPDMGEXP == 'm' | PROPDMGEXP =='M') {
+        PROPDMG*1000000
+    } else if (PROPDMGEXP == 'k' | PROPDMGEXP =='K') {
+        PROPDMG*1000
+    } else if (PROPDMGEXP == 'h' | PROPDMGEXP == 'H') {
+        PROPDMG*100
+    } else if (is.na(PROPDMG)) {
+        0
+    } else {
+        PROPDMG
+    }
+},by=r]
+
+data[,CROPDMG:={
+    if (CROPDMGEXP == 'b' | CROPDMGEXP =='B') {
+        CROPDMG*1000000000
+    } else if (PROPDMGEXP == 'm' | CROPDMGEXP =='M') {
+        CROPDMG*1000000
+    } else if (PROPDMGEXP == 'k' | CROPDMGEXP =='K') {
+        CROPDMG*1000
+    } else if (PROPDMGEXP == 'h' | PROPDMGEXP == 'H') {
+        PROPDMG*100
+    } else if (is.na(CROPDMG)) {
+        0
+    } else {
+        CROPDMG
+    }
+},by=r]
+```
+
+```{r summarize.data}
+#cost
+# Calculate total and average data for each of the following statistics
+# Damage (in dollars), Injuries (# people), Fatalities (# people)
+data.by.type <- data[,
+                     list(
+                         sum(PROPDMG+CROPDMG),
+                         round(mean(PROPDMG+CROPDMG),digits=0),
+                         sum(INJURIES),
+                         round(mean(INJURIES), digits=1),
+                         sum(FATALITIES),
+                         round(mean(FATALITIES), digits=1),
+                         .N),
+                     by=EVTYPE]
+setnames(data.by.type, c('EVTYPE','SUMDMG','AVGDMG','SUMINJ', 'AVGINJ', 'SUMFAT', 'AVGFAT', 'COUNT'))
+```
