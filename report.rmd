@@ -1,41 +1,55 @@
 ```{r, setoptions,echo=FALSE}
-opts_chunk$set(echo = TRUE, fig.width=8, fig.height=8)
+library(knitr)
+opts_chunk$set(echo = TRUE)
+use.cache=TRUE
 ```
-Impact of Hydro-Meteorological Events, US 1950-2011
-===================================================
+Impact of Hydro-Meteorological Events
+=====================================
+## US Storm Data, 1950-2011
 
 
-###Synopsis:  
-    The impact of a storm can range from insignificant to immense. In this document
-    we attempt to take a cursory glance through what might be the most impactful
-    storm types according to all the data the NOAA has to offer from 1950 through 2011.
+### Synopsis:  
+The impact of a storm can range from insignificant to immense. In this document we attempt to take a cursory glance through what might be the most impactful storm types according to all the data the NOAA has to offer from 1950 through 2011.
   
 
-##Data Processing:
-	To begin with, our data comes in the form of a rather large Comma Separated Value file.
-	Roughly half a gigabyte, this file contains just over 900 thousand observation,
-  spaning just over 60 years. The data for the last 20 or 30 years is considerably,
-  and understandably,	more complete.  
+### Data Processing:
+To begin with, our data comes in the form of a rather large Comma Separated Value file. Roughly half a gigabyte, this file contains just over 900 thousand observations, spaning more than 60 years. The data for the last 20 or 30 years is considerably, and understandably, more complete than the years prior. This data is available from the [NOAA Storm Events Database](http://www.ncdc.noaa.gov/stormevents/ftp.jsp) in CSV files separated by year. Our dataset is presented as a conglomerate of all the data from the years mentioned above.  
 
-	To begin with we will need to take the data from it's raw text form and bring it into R
-	to start our analysis. We will be using the `data.table` package to make our processing
-  faster after our initial read.  
-  You'll note I'm using the `base` packages' `read.csv()` function and then immediately
-  turning that `data.frame` into a `data.table`. This is because there is a known and
-  tracked bug when using `fread` to read .csv files that have irregular usage of commas
-  inside escaped blocks of text. That being said, the method below only takes a fractional
-  amount of time more and will yeild considerably faster processing below:  
-```{r read.data, cache=TRUE}
+```{r download.data, results='hide', echo=FALSE}
+if (!file.exists('stormdata.csv')) {
+    # attempt to download the file.
+    file.url = 'https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2'
+    if (.Platform$OS.type == 'unix') {
+        # Download the file using CURL
+        download.file(file.url, 'stormdata.csv.bz2', method='curl')
+    } else {
+        # Download the file using internal system methods
+        download.file(file.url, 'stormdata.csv.bz2')
+    }
+    # Use R.utils package to unzip file.
+    bunzip2('stormdata.csv.bz2')
+}
+```
+
+To begin with we will need to take the data from it's raw text form and bring it into R
+to start our analysis. We will be using the `data.table` package to make our processing
+faster after our initial read.  
+You'll note I'm using the `base` packages' `read.csv()` function and then immediately
+turning that `data.frame` into a `data.table`. This is because there is a known and
+tracked bug when using `fread` to read .csv files that have irregular usage of commas
+inside escaped blocks of text. That being said, the method below only takes a fractional
+amount of time more and will yeild considerably faster processing below:  
+```{r read.data, cache=use.cache, results='hold'}
 library(data.table)
 data <- data.table(read.csv('stormdata.csv'))
 ```
 
-  Next, we will begin the actual processing of our data. First, we are going to convert
-  the data that corresponds with the fiscal impact of an event into whole numbers.
-  Having seen the original data, there seems to be some mis-translation of the original
-  numbers into the form our current csv file has. We will be doing our best to accomodate
-  and take only what we know for certain at face value:  
-```{r process.dmg, cache=TRUE}
+Next, we will begin the actual processing of our data. First, we are going to convert
+the data that corresponds with the fiscal impact of an event into whole numbers.
+Having seen the original data, there seems to be some mis-translation of the original
+numbers into the form our current csv file has. We will be doing our best to accomodate
+and take only what we know for certain at face value:  
+```{r process.dmg, cache=use.cache, results='hide'}
 # First we'll give ourselves something like a row number to work our data with
 data[,r:=1:.N]
 
@@ -79,7 +93,7 @@ data[,CROPDMG:={
 },by=r]
 ```
 
-```{r summarize.data}
+```{r summarize.data, cache=use.cache}
 #cost
 # Calculate total and average data for each of the following statistics
 # Damage (in dollars), Injuries (# people), Fatalities (# people)
