@@ -36,120 +36,7 @@ and take only what we know for certain at face value:
 ```r
 # First we'll give ourselves something like a row number to work our data with
 data[,r:=1:.N]
-```
 
-```
-##         STATE__           BGN_DATE    BGN_TIME TIME_ZONE COUNTY
-##      1:       1  4/18/1950 0:00:00        0130       CST     97
-##      2:       1  4/18/1950 0:00:00        0145       CST      3
-##      3:       1  2/20/1951 0:00:00        1600       CST     57
-##      4:       1   6/8/1951 0:00:00        0900       CST     89
-##      5:       1 11/15/1951 0:00:00        1500       CST     43
-##     ---                                                        
-## 902293:      56 11/30/2011 0:00:00 10:30:00 PM       MST      7
-## 902294:      30 11/10/2011 0:00:00 02:48:00 PM       MST      9
-## 902295:       2  11/8/2011 0:00:00 02:58:00 PM       AKS    213
-## 902296:       2  11/9/2011 0:00:00 10:21:00 AM       AKS    202
-## 902297:       1 11/28/2011 0:00:00 08:00:00 PM       CST      6
-##           COUNTYNAME STATE     EVTYPE BGN_RANGE BGN_AZI BGN_LOCATI
-##      1:       MOBILE    AL    TORNADO         0                   
-##      2:      BALDWIN    AL    TORNADO         0                   
-##      3:      FAYETTE    AL    TORNADO         0                   
-##      4:      MADISON    AL    TORNADO         0                   
-##      5:      CULLMAN    AL    TORNADO         0                   
-##     ---                                                           
-## 902293: WYZ007 - 017    WY  HIGH WIND         0                   
-## 902294: MTZ009 - 010    MT  HIGH WIND         0                   
-## 902295:       AKZ213    AK  HIGH WIND         0                   
-## 902296:       AKZ202    AK   BLIZZARD         0                   
-## 902297:       ALZ006    AL HEAVY SNOW         0                   
-##                   END_DATE    END_TIME COUNTY_END COUNTYENDN END_RANGE
-##      1:                                         0         NA         0
-##      2:                                         0         NA         0
-##      3:                                         0         NA         0
-##      4:                                         0         NA         0
-##      5:                                         0         NA         0
-##     ---                                                               
-## 902293: 11/30/2011 0:00:00 10:30:00 PM          0         NA         0
-## 902294: 11/10/2011 0:00:00 02:48:00 PM          0         NA         0
-## 902295:  11/9/2011 0:00:00 01:15:00 PM          0         NA         0
-## 902296:  11/9/2011 0:00:00 05:00:00 PM          0         NA         0
-## 902297: 11/29/2011 0:00:00 04:00:00 AM          0         NA         0
-##         END_AZI END_LOCATI LENGTH WIDTH  F MAG FATALITIES INJURIES PROPDMG
-##      1:                      14.0   100  3   0          0       15    25.0
-##      2:                       2.0   150  2   0          0        0     2.5
-##      3:                       0.1   123  2   0          0        2    25.0
-##      4:                       0.0   100  2   0          0        2     2.5
-##      5:                       0.0   150  2   0          0        2     2.5
-##     ---                                                                   
-## 902293:                       0.0     0 NA  66          0        0     0.0
-## 902294:                       0.0     0 NA  52          0        0     0.0
-## 902295:                       0.0     0 NA  81          0        0     0.0
-## 902296:                       0.0     0 NA   0          0        0     0.0
-## 902297:                       0.0     0 NA   0          0        0     0.0
-##         PROPDMGEXP CROPDMG CROPDMGEXP WFO                STATEOFFIC
-##      1:          K       0                                         
-##      2:          K       0                                         
-##      3:          K       0                                         
-##      4:          K       0                                         
-##      5:          K       0                                         
-##     ---                                                            
-## 902293:          K       0          K RIW WYOMING, Central and West
-## 902294:          K       0          K TFX          MONTANA, Central
-## 902295:          K       0          K AFG          ALASKA, Northern
-## 902296:          K       0          K AFG          ALASKA, Northern
-## 902297:          K       0          K HUN            ALABAMA, North
-##                                                                                ZONENAMES
-##      1:                                                                                 
-##      2:                                                                                 
-##      3:                                                                                 
-##      4:                                                                                 
-##      5:                                                                                 
-##     ---                                                                                 
-## 902293: OWL CREEK & BRIDGER MOUNTAINS - OWL CREEK & BRIDGER MOUNTAINS - WIND RIVER BASIN
-## 902294:        NORTH ROCKY MOUNTAIN FRONT - NORTH ROCKY MOUNTAIN FRONT - EASTERN GLACIER
-## 902295:                    ST LAWRENCE IS. BERING STRAIT - ST LAWRENCE IS. BERING STRAIT
-## 902296:                                    NORTHERN ARCTIC COAST - NORTHERN ARCTIC COAST
-## 902297:                                                                MADISON - MADISON
-##         LATITUDE LONGITUDE LATITUDE_E LONGITUDE_
-##      1:     3040      8812       3051       8806
-##      2:     3042      8755          0          0
-##      3:     3340      8742          0          0
-##      4:     3458      8626          0          0
-##      5:     3412      8642          0          0
-##     ---                                         
-## 902293:        0         0          0          0
-## 902294:        0         0          0          0
-## 902295:        0         0          0          0
-## 902296:        0         0          0          0
-## 902297:        0         0          0          0
-##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         REMARKS
-##      1:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      2:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      3:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      4:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      5:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##     ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-## 902293:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           EPISODE NARRATIVE: A strong cold front moved south through north central Wyoming bringing high wind to the Meeteetse area and along the south slopes of the western Owl Creek Range. Wind gusts to 76 mph were recorded at Madden Reservoir.EVENT NARRATIVE: 
-## 902294:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      EPISODE NARRATIVE: A strong westerly flow aloft produced gusty winds at the surface along the Rocky Mountain front and over the plains of Central Montana. Wind gusts in excess of 60 mph were reported.EVENT NARRATIVE: A wind gust to 60 mph was reported at East Glacier Park 1ENE (the Two Medicine DOT site).
-## 902295: EPISODE NARRATIVE: A 960 mb low over the southern Aleutians at 0300AKST on the 8th intensified to 945 mb near the Gulf of Anadyr by 2100AKST on the 8th. The low crossed the Chukotsk Peninsula as a 956 mb low at 0900AKST on the 9th, and moved into the southern Chukchi Sea as a 958 mb low by 2100AKST on the 9th. The low then tracked to the northwest and weakened to 975 mb about 150 miles north of Wrangel Island by 1500AKST on the 10th. The storm was one of the strongest storms to impact the west coast of Alaska since November 1974. \n\nZone 201: Blizzard conditions were observed at Wainwright from approximately 1153AKST through 1611AKST on the 9th. The visibility was frequently reduced to one quarter mile in snow and blowing snow. There was a peak wind gust to 43kt (50 mph) at the Wainwright ASOS. During this event, there was also a peak wind gust to \n68 kt (78 mph) at the Cape Lisburne AWOS. \n\nZone 202: Blizzard conditions were observed at Barrow from approximately 1021AKST through 1700AKST on the 9th. The visibility was frequently reduced to one quarter mile or less in blowing snow. There was a peak wind gust to 46 kt (53 mph) at the Barrow ASOS. \n\nZone 207: Blizzard conditions were observed at Kivalina from approximately 0400AKST through 1230AKST on the 9th. The visibility was frequently reduced to one quarter of a mile in snow and blowing snow. There was a peak wind gust to 61 kt (70 mph) at the Kivalina ASOS.  The doors to the village transportation shed were blown out to sea.  Many homes lost portions of their tin roofing, and satellite dishes were ripped off of roofs. One home had its door blown off.  At Point Hope, severe blizzard conditions were observed. There was a peak wind gust of 68 kt (78 mph) at the Point Hope AWOS before power was lost to the AWOS. It was estimated that the wind gusted as high as 85 mph in the village during the height of the storm during the morning and early afternoon hours on the 9th. Five power poles were knocked down in the storm EVENT NARRATIVE: 
-## 902296: EPISODE NARRATIVE: A 960 mb low over the southern Aleutians at 0300AKST on the 8th intensified to 945 mb near the Gulf of Anadyr by 2100AKST on the 8th. The low crossed the Chukotsk Peninsula as a 956 mb low at 0900AKST on the 9th, and moved into the southern Chukchi Sea as a 958 mb low by 2100AKST on the 9th. The low then tracked to the northwest and weakened to 975 mb about 150 miles north of Wrangel Island by 1500AKST on the 10th. The storm was one of the strongest storms to impact the west coast of Alaska since November 1974. \n\nZone 201: Blizzard conditions were observed at Wainwright from approximately 1153AKST through 1611AKST on the 9th. The visibility was frequently reduced to one quarter mile in snow and blowing snow. There was a peak wind gust to 43kt (50 mph) at the Wainwright ASOS. During this event, there was also a peak wind gust to \n68 kt (78 mph) at the Cape Lisburne AWOS. \n\nZone 202: Blizzard conditions were observed at Barrow from approximately 1021AKST through 1700AKST on the 9th. The visibility was frequently reduced to one quarter mile or less in blowing snow. There was a peak wind gust to 46 kt (53 mph) at the Barrow ASOS. \n\nZone 207: Blizzard conditions were observed at Kivalina from approximately 0400AKST through 1230AKST on the 9th. The visibility was frequently reduced to one quarter of a mile in snow and blowing snow. There was a peak wind gust to 61 kt (70 mph) at the Kivalina ASOS.  The doors to the village transportation shed were blown out to sea.  Many homes lost portions of their tin roofing, and satellite dishes were ripped off of roofs. One home had its door blown off.  At Point Hope, severe blizzard conditions were observed. There was a peak wind gust of 68 kt (78 mph) at the Point Hope AWOS before power was lost to the AWOS. It was estimated that the wind gusted as high as 85 mph in the village during the height of the storm during the morning and early afternoon hours on the 9th. Five power poles were knocked down in the storm EVENT NARRATIVE: 
-## 902297:                           EPISODE NARRATIVE: An intense upper level low developed on the 28th at the base of a highly amplified upper trough across the Great Lakes and Mississippi Valley.  The upper low closed off over the mid South and tracked northeast across the Tennessee Valley during the morning of the 29th.   A warm conveyor belt of heavy rainfall developed in advance of the low which dumped from around 2 to over 5 inches of rain across the eastern two thirds of north Alabama and middle Tennessee.  The highest rain amounts were recorded in Jackson and DeKalb Counties with 3 to 5 inches.  The rain fell over 24 to 36 hour period, with rainfall remaining light to moderate during most its duration.  The rainfall resulted in minor river flooding along the Little River, Big Wills Creek and Paint Rock.   A landslide occurred on Highway 35 just north of Section in Jackson County.  A driver was trapped in his vehicle, but was rescued unharmed.  Trees, boulders and debris blocked 100 to 250 yards of Highway 35.\n\nThe rain mixed with and changed to snow across north Alabama during the afternoon and  evening hours of the 28th, and lasted into the 29th.  The heaviest bursts of snow occurred in northwest Alabama during the afternoon and evening hours, and in north central and northeast Alabama during the overnight and morning hours.  Since ground temperatures were in the 50s, and air temperatures in valley areas only dropped into the mid 30s, most of the snowfall melted on impact with mostly trace amounts reported in valley locations.  However, above 1500 foot elevation, snow accumulations of 1 to 2 inches were reported.  The heaviest amount was 2.3 inches on Monte Sano Mountain, about 5 miles northeast of Huntsville.EVENT NARRATIVE: Snowfall accumulations of up to 2.3 inches were reported on the higher elevations of eastern Madison County.  A snow accumulation of 1.5 inches was reported 2.7 miles south of Gurley, while 2.3 inches was reported 3 miles east of Huntsville atop Monte Sano Mountain.
-##         REFNUM      r
-##      1:      1      1
-##      2:      2      2
-##      3:      3      3
-##      4:      4      4
-##      5:      5      5
-##     ---              
-## 902293: 902293 902293
-## 902294: 902294 902294
-## 902295: 902295 902295
-## 902296: 902296 902296
-## 902297: 902297 902297
-```
-
-```r
 # Each of the blocks below follow the same functionality.
 # Loop through all values of a given variable (PROPDMG or CROPDMG), and
 # use the data in the corresponding "*EXP" variable to convert that into
@@ -172,108 +59,7 @@ data[,PROPDMG:={
         PROPDMG
     }
 },by=r]
-```
 
-```
-##         STATE__           BGN_DATE    BGN_TIME TIME_ZONE COUNTY   COUNTYNAME STATE
-##      1:       1  4/18/1950 0:00:00        0130       CST     97       MOBILE    AL
-##      2:       1  4/18/1950 0:00:00        0145       CST      3      BALDWIN    AL
-##      3:       1  2/20/1951 0:00:00        1600       CST     57      FAYETTE    AL
-##      4:       1   6/8/1951 0:00:00        0900       CST     89      MADISON    AL
-##      5:       1 11/15/1951 0:00:00        1500       CST     43      CULLMAN    AL
-##     ---                                                                           
-## 902293:      56 11/30/2011 0:00:00 10:30:00 PM       MST      7 WYZ007 - 017    WY
-## 902294:      30 11/10/2011 0:00:00 02:48:00 PM       MST      9 MTZ009 - 010    MT
-## 902295:       2  11/8/2011 0:00:00 02:58:00 PM       AKS    213       AKZ213    AK
-## 902296:       2  11/9/2011 0:00:00 10:21:00 AM       AKS    202       AKZ202    AK
-## 902297:       1 11/28/2011 0:00:00 08:00:00 PM       CST      6       ALZ006    AL
-##             EVTYPE BGN_RANGE BGN_AZI BGN_LOCATI           END_DATE    END_TIME COUNTY_END
-##      1:    TORNADO         0                                                            0
-##      2:    TORNADO         0                                                            0
-##      3:    TORNADO         0                                                            0
-##      4:    TORNADO         0                                                            0
-##      5:    TORNADO         0                                                            0
-##     ---                                                                                  
-## 902293:  HIGH WIND         0                    11/30/2011 0:00:00 10:30:00 PM          0
-## 902294:  HIGH WIND         0                    11/10/2011 0:00:00 02:48:00 PM          0
-## 902295:  HIGH WIND         0                     11/9/2011 0:00:00 01:15:00 PM          0
-## 902296:   BLIZZARD         0                     11/9/2011 0:00:00 05:00:00 PM          0
-## 902297: HEAVY SNOW         0                    11/29/2011 0:00:00 04:00:00 AM          0
-##         COUNTYENDN END_RANGE END_AZI END_LOCATI LENGTH WIDTH  F MAG FATALITIES INJURIES
-##      1:         NA         0                      14.0   100  3   0          0       15
-##      2:         NA         0                       2.0   150  2   0          0        0
-##      3:         NA         0                       0.1   123  2   0          0        2
-##      4:         NA         0                       0.0   100  2   0          0        2
-##      5:         NA         0                       0.0   150  2   0          0        2
-##     ---                                                                                
-## 902293:         NA         0                       0.0     0 NA  66          0        0
-## 902294:         NA         0                       0.0     0 NA  52          0        0
-## 902295:         NA         0                       0.0     0 NA  81          0        0
-## 902296:         NA         0                       0.0     0 NA   0          0        0
-## 902297:         NA         0                       0.0     0 NA   0          0        0
-##         PROPDMG PROPDMGEXP CROPDMG CROPDMGEXP WFO                STATEOFFIC
-##      1:   25000          K       0                                         
-##      2:    2500          K       0                                         
-##      3:   25000          K       0                                         
-##      4:    2500          K       0                                         
-##      5:    2500          K       0                                         
-##     ---                                                                    
-## 902293:       0          K       0          K RIW WYOMING, Central and West
-## 902294:       0          K       0          K TFX          MONTANA, Central
-## 902295:       0          K       0          K AFG          ALASKA, Northern
-## 902296:       0          K       0          K AFG          ALASKA, Northern
-## 902297:       0          K       0          K HUN            ALABAMA, North
-##                                                                                ZONENAMES
-##      1:                                                                                 
-##      2:                                                                                 
-##      3:                                                                                 
-##      4:                                                                                 
-##      5:                                                                                 
-##     ---                                                                                 
-## 902293: OWL CREEK & BRIDGER MOUNTAINS - OWL CREEK & BRIDGER MOUNTAINS - WIND RIVER BASIN
-## 902294:        NORTH ROCKY MOUNTAIN FRONT - NORTH ROCKY MOUNTAIN FRONT - EASTERN GLACIER
-## 902295:                    ST LAWRENCE IS. BERING STRAIT - ST LAWRENCE IS. BERING STRAIT
-## 902296:                                    NORTHERN ARCTIC COAST - NORTHERN ARCTIC COAST
-## 902297:                                                                MADISON - MADISON
-##         LATITUDE LONGITUDE LATITUDE_E LONGITUDE_
-##      1:     3040      8812       3051       8806
-##      2:     3042      8755          0          0
-##      3:     3340      8742          0          0
-##      4:     3458      8626          0          0
-##      5:     3412      8642          0          0
-##     ---                                         
-## 902293:        0         0          0          0
-## 902294:        0         0          0          0
-## 902295:        0         0          0          0
-## 902296:        0         0          0          0
-## 902297:        0         0          0          0
-##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         REMARKS
-##      1:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      2:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      3:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      4:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      5:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##     ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-## 902293:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           EPISODE NARRATIVE: A strong cold front moved south through north central Wyoming bringing high wind to the Meeteetse area and along the south slopes of the western Owl Creek Range. Wind gusts to 76 mph were recorded at Madden Reservoir.EVENT NARRATIVE: 
-## 902294:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      EPISODE NARRATIVE: A strong westerly flow aloft produced gusty winds at the surface along the Rocky Mountain front and over the plains of Central Montana. Wind gusts in excess of 60 mph were reported.EVENT NARRATIVE: A wind gust to 60 mph was reported at East Glacier Park 1ENE (the Two Medicine DOT site).
-## 902295: EPISODE NARRATIVE: A 960 mb low over the southern Aleutians at 0300AKST on the 8th intensified to 945 mb near the Gulf of Anadyr by 2100AKST on the 8th. The low crossed the Chukotsk Peninsula as a 956 mb low at 0900AKST on the 9th, and moved into the southern Chukchi Sea as a 958 mb low by 2100AKST on the 9th. The low then tracked to the northwest and weakened to 975 mb about 150 miles north of Wrangel Island by 1500AKST on the 10th. The storm was one of the strongest storms to impact the west coast of Alaska since November 1974. \n\nZone 201: Blizzard conditions were observed at Wainwright from approximately 1153AKST through 1611AKST on the 9th. The visibility was frequently reduced to one quarter mile in snow and blowing snow. There was a peak wind gust to 43kt (50 mph) at the Wainwright ASOS. During this event, there was also a peak wind gust to \n68 kt (78 mph) at the Cape Lisburne AWOS. \n\nZone 202: Blizzard conditions were observed at Barrow from approximately 1021AKST through 1700AKST on the 9th. The visibility was frequently reduced to one quarter mile or less in blowing snow. There was a peak wind gust to 46 kt (53 mph) at the Barrow ASOS. \n\nZone 207: Blizzard conditions were observed at Kivalina from approximately 0400AKST through 1230AKST on the 9th. The visibility was frequently reduced to one quarter of a mile in snow and blowing snow. There was a peak wind gust to 61 kt (70 mph) at the Kivalina ASOS.  The doors to the village transportation shed were blown out to sea.  Many homes lost portions of their tin roofing, and satellite dishes were ripped off of roofs. One home had its door blown off.  At Point Hope, severe blizzard conditions were observed. There was a peak wind gust of 68 kt (78 mph) at the Point Hope AWOS before power was lost to the AWOS. It was estimated that the wind gusted as high as 85 mph in the village during the height of the storm during the morning and early afternoon hours on the 9th. Five power poles were knocked down in the storm EVENT NARRATIVE: 
-## 902296: EPISODE NARRATIVE: A 960 mb low over the southern Aleutians at 0300AKST on the 8th intensified to 945 mb near the Gulf of Anadyr by 2100AKST on the 8th. The low crossed the Chukotsk Peninsula as a 956 mb low at 0900AKST on the 9th, and moved into the southern Chukchi Sea as a 958 mb low by 2100AKST on the 9th. The low then tracked to the northwest and weakened to 975 mb about 150 miles north of Wrangel Island by 1500AKST on the 10th. The storm was one of the strongest storms to impact the west coast of Alaska since November 1974. \n\nZone 201: Blizzard conditions were observed at Wainwright from approximately 1153AKST through 1611AKST on the 9th. The visibility was frequently reduced to one quarter mile in snow and blowing snow. There was a peak wind gust to 43kt (50 mph) at the Wainwright ASOS. During this event, there was also a peak wind gust to \n68 kt (78 mph) at the Cape Lisburne AWOS. \n\nZone 202: Blizzard conditions were observed at Barrow from approximately 1021AKST through 1700AKST on the 9th. The visibility was frequently reduced to one quarter mile or less in blowing snow. There was a peak wind gust to 46 kt (53 mph) at the Barrow ASOS. \n\nZone 207: Blizzard conditions were observed at Kivalina from approximately 0400AKST through 1230AKST on the 9th. The visibility was frequently reduced to one quarter of a mile in snow and blowing snow. There was a peak wind gust to 61 kt (70 mph) at the Kivalina ASOS.  The doors to the village transportation shed were blown out to sea.  Many homes lost portions of their tin roofing, and satellite dishes were ripped off of roofs. One home had its door blown off.  At Point Hope, severe blizzard conditions were observed. There was a peak wind gust of 68 kt (78 mph) at the Point Hope AWOS before power was lost to the AWOS. It was estimated that the wind gusted as high as 85 mph in the village during the height of the storm during the morning and early afternoon hours on the 9th. Five power poles were knocked down in the storm EVENT NARRATIVE: 
-## 902297:                           EPISODE NARRATIVE: An intense upper level low developed on the 28th at the base of a highly amplified upper trough across the Great Lakes and Mississippi Valley.  The upper low closed off over the mid South and tracked northeast across the Tennessee Valley during the morning of the 29th.   A warm conveyor belt of heavy rainfall developed in advance of the low which dumped from around 2 to over 5 inches of rain across the eastern two thirds of north Alabama and middle Tennessee.  The highest rain amounts were recorded in Jackson and DeKalb Counties with 3 to 5 inches.  The rain fell over 24 to 36 hour period, with rainfall remaining light to moderate during most its duration.  The rainfall resulted in minor river flooding along the Little River, Big Wills Creek and Paint Rock.   A landslide occurred on Highway 35 just north of Section in Jackson County.  A driver was trapped in his vehicle, but was rescued unharmed.  Trees, boulders and debris blocked 100 to 250 yards of Highway 35.\n\nThe rain mixed with and changed to snow across north Alabama during the afternoon and  evening hours of the 28th, and lasted into the 29th.  The heaviest bursts of snow occurred in northwest Alabama during the afternoon and evening hours, and in north central and northeast Alabama during the overnight and morning hours.  Since ground temperatures were in the 50s, and air temperatures in valley areas only dropped into the mid 30s, most of the snowfall melted on impact with mostly trace amounts reported in valley locations.  However, above 1500 foot elevation, snow accumulations of 1 to 2 inches were reported.  The heaviest amount was 2.3 inches on Monte Sano Mountain, about 5 miles northeast of Huntsville.EVENT NARRATIVE: Snowfall accumulations of up to 2.3 inches were reported on the higher elevations of eastern Madison County.  A snow accumulation of 1.5 inches was reported 2.7 miles south of Gurley, while 2.3 inches was reported 3 miles east of Huntsville atop Monte Sano Mountain.
-##         REFNUM      r
-##      1:      1      1
-##      2:      2      2
-##      3:      3      3
-##      4:      4      4
-##      5:      5      5
-##     ---              
-## 902293: 902293 902293
-## 902294: 902294 902294
-## 902295: 902295 902295
-## 902296: 902296 902296
-## 902297: 902297 902297
-```
-
-```r
 data[,CROPDMG:={
     if (CROPDMGEXP == 'b' | CROPDMGEXP =='B') {
         CROPDMG*1000000000
@@ -291,105 +77,8 @@ data[,CROPDMG:={
 },by=r]
 ```
 
-```
-##         STATE__           BGN_DATE    BGN_TIME TIME_ZONE COUNTY   COUNTYNAME STATE
-##      1:       1  4/18/1950 0:00:00        0130       CST     97       MOBILE    AL
-##      2:       1  4/18/1950 0:00:00        0145       CST      3      BALDWIN    AL
-##      3:       1  2/20/1951 0:00:00        1600       CST     57      FAYETTE    AL
-##      4:       1   6/8/1951 0:00:00        0900       CST     89      MADISON    AL
-##      5:       1 11/15/1951 0:00:00        1500       CST     43      CULLMAN    AL
-##     ---                                                                           
-## 902293:      56 11/30/2011 0:00:00 10:30:00 PM       MST      7 WYZ007 - 017    WY
-## 902294:      30 11/10/2011 0:00:00 02:48:00 PM       MST      9 MTZ009 - 010    MT
-## 902295:       2  11/8/2011 0:00:00 02:58:00 PM       AKS    213       AKZ213    AK
-## 902296:       2  11/9/2011 0:00:00 10:21:00 AM       AKS    202       AKZ202    AK
-## 902297:       1 11/28/2011 0:00:00 08:00:00 PM       CST      6       ALZ006    AL
-##             EVTYPE BGN_RANGE BGN_AZI BGN_LOCATI           END_DATE    END_TIME COUNTY_END
-##      1:    TORNADO         0                                                            0
-##      2:    TORNADO         0                                                            0
-##      3:    TORNADO         0                                                            0
-##      4:    TORNADO         0                                                            0
-##      5:    TORNADO         0                                                            0
-##     ---                                                                                  
-## 902293:  HIGH WIND         0                    11/30/2011 0:00:00 10:30:00 PM          0
-## 902294:  HIGH WIND         0                    11/10/2011 0:00:00 02:48:00 PM          0
-## 902295:  HIGH WIND         0                     11/9/2011 0:00:00 01:15:00 PM          0
-## 902296:   BLIZZARD         0                     11/9/2011 0:00:00 05:00:00 PM          0
-## 902297: HEAVY SNOW         0                    11/29/2011 0:00:00 04:00:00 AM          0
-##         COUNTYENDN END_RANGE END_AZI END_LOCATI LENGTH WIDTH  F MAG FATALITIES INJURIES
-##      1:         NA         0                      14.0   100  3   0          0       15
-##      2:         NA         0                       2.0   150  2   0          0        0
-##      3:         NA         0                       0.1   123  2   0          0        2
-##      4:         NA         0                       0.0   100  2   0          0        2
-##      5:         NA         0                       0.0   150  2   0          0        2
-##     ---                                                                                
-## 902293:         NA         0                       0.0     0 NA  66          0        0
-## 902294:         NA         0                       0.0     0 NA  52          0        0
-## 902295:         NA         0                       0.0     0 NA  81          0        0
-## 902296:         NA         0                       0.0     0 NA   0          0        0
-## 902297:         NA         0                       0.0     0 NA   0          0        0
-##         PROPDMG PROPDMGEXP CROPDMG CROPDMGEXP WFO                STATEOFFIC
-##      1:   25000          K       0                                         
-##      2:    2500          K       0                                         
-##      3:   25000          K       0                                         
-##      4:    2500          K       0                                         
-##      5:    2500          K       0                                         
-##     ---                                                                    
-## 902293:       0          K       0          K RIW WYOMING, Central and West
-## 902294:       0          K       0          K TFX          MONTANA, Central
-## 902295:       0          K       0          K AFG          ALASKA, Northern
-## 902296:       0          K       0          K AFG          ALASKA, Northern
-## 902297:       0          K       0          K HUN            ALABAMA, North
-##                                                                                ZONENAMES
-##      1:                                                                                 
-##      2:                                                                                 
-##      3:                                                                                 
-##      4:                                                                                 
-##      5:                                                                                 
-##     ---                                                                                 
-## 902293: OWL CREEK & BRIDGER MOUNTAINS - OWL CREEK & BRIDGER MOUNTAINS - WIND RIVER BASIN
-## 902294:        NORTH ROCKY MOUNTAIN FRONT - NORTH ROCKY MOUNTAIN FRONT - EASTERN GLACIER
-## 902295:                    ST LAWRENCE IS. BERING STRAIT - ST LAWRENCE IS. BERING STRAIT
-## 902296:                                    NORTHERN ARCTIC COAST - NORTHERN ARCTIC COAST
-## 902297:                                                                MADISON - MADISON
-##         LATITUDE LONGITUDE LATITUDE_E LONGITUDE_
-##      1:     3040      8812       3051       8806
-##      2:     3042      8755          0          0
-##      3:     3340      8742          0          0
-##      4:     3458      8626          0          0
-##      5:     3412      8642          0          0
-##     ---                                         
-## 902293:        0         0          0          0
-## 902294:        0         0          0          0
-## 902295:        0         0          0          0
-## 902296:        0         0          0          0
-## 902297:        0         0          0          0
-##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         REMARKS
-##      1:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      2:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      3:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      4:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##      5:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-##     ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-## 902293:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           EPISODE NARRATIVE: A strong cold front moved south through north central Wyoming bringing high wind to the Meeteetse area and along the south slopes of the western Owl Creek Range. Wind gusts to 76 mph were recorded at Madden Reservoir.EVENT NARRATIVE: 
-## 902294:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      EPISODE NARRATIVE: A strong westerly flow aloft produced gusty winds at the surface along the Rocky Mountain front and over the plains of Central Montana. Wind gusts in excess of 60 mph were reported.EVENT NARRATIVE: A wind gust to 60 mph was reported at East Glacier Park 1ENE (the Two Medicine DOT site).
-## 902295: EPISODE NARRATIVE: A 960 mb low over the southern Aleutians at 0300AKST on the 8th intensified to 945 mb near the Gulf of Anadyr by 2100AKST on the 8th. The low crossed the Chukotsk Peninsula as a 956 mb low at 0900AKST on the 9th, and moved into the southern Chukchi Sea as a 958 mb low by 2100AKST on the 9th. The low then tracked to the northwest and weakened to 975 mb about 150 miles north of Wrangel Island by 1500AKST on the 10th. The storm was one of the strongest storms to impact the west coast of Alaska since November 1974. \n\nZone 201: Blizzard conditions were observed at Wainwright from approximately 1153AKST through 1611AKST on the 9th. The visibility was frequently reduced to one quarter mile in snow and blowing snow. There was a peak wind gust to 43kt (50 mph) at the Wainwright ASOS. During this event, there was also a peak wind gust to \n68 kt (78 mph) at the Cape Lisburne AWOS. \n\nZone 202: Blizzard conditions were observed at Barrow from approximately 1021AKST through 1700AKST on the 9th. The visibility was frequently reduced to one quarter mile or less in blowing snow. There was a peak wind gust to 46 kt (53 mph) at the Barrow ASOS. \n\nZone 207: Blizzard conditions were observed at Kivalina from approximately 0400AKST through 1230AKST on the 9th. The visibility was frequently reduced to one quarter of a mile in snow and blowing snow. There was a peak wind gust to 61 kt (70 mph) at the Kivalina ASOS.  The doors to the village transportation shed were blown out to sea.  Many homes lost portions of their tin roofing, and satellite dishes were ripped off of roofs. One home had its door blown off.  At Point Hope, severe blizzard conditions were observed. There was a peak wind gust of 68 kt (78 mph) at the Point Hope AWOS before power was lost to the AWOS. It was estimated that the wind gusted as high as 85 mph in the village during the height of the storm during the morning and early afternoon hours on the 9th. Five power poles were knocked down in the storm EVENT NARRATIVE: 
-## 902296: EPISODE NARRATIVE: A 960 mb low over the southern Aleutians at 0300AKST on the 8th intensified to 945 mb near the Gulf of Anadyr by 2100AKST on the 8th. The low crossed the Chukotsk Peninsula as a 956 mb low at 0900AKST on the 9th, and moved into the southern Chukchi Sea as a 958 mb low by 2100AKST on the 9th. The low then tracked to the northwest and weakened to 975 mb about 150 miles north of Wrangel Island by 1500AKST on the 10th. The storm was one of the strongest storms to impact the west coast of Alaska since November 1974. \n\nZone 201: Blizzard conditions were observed at Wainwright from approximately 1153AKST through 1611AKST on the 9th. The visibility was frequently reduced to one quarter mile in snow and blowing snow. There was a peak wind gust to 43kt (50 mph) at the Wainwright ASOS. During this event, there was also a peak wind gust to \n68 kt (78 mph) at the Cape Lisburne AWOS. \n\nZone 202: Blizzard conditions were observed at Barrow from approximately 1021AKST through 1700AKST on the 9th. The visibility was frequently reduced to one quarter mile or less in blowing snow. There was a peak wind gust to 46 kt (53 mph) at the Barrow ASOS. \n\nZone 207: Blizzard conditions were observed at Kivalina from approximately 0400AKST through 1230AKST on the 9th. The visibility was frequently reduced to one quarter of a mile in snow and blowing snow. There was a peak wind gust to 61 kt (70 mph) at the Kivalina ASOS.  The doors to the village transportation shed were blown out to sea.  Many homes lost portions of their tin roofing, and satellite dishes were ripped off of roofs. One home had its door blown off.  At Point Hope, severe blizzard conditions were observed. There was a peak wind gust of 68 kt (78 mph) at the Point Hope AWOS before power was lost to the AWOS. It was estimated that the wind gusted as high as 85 mph in the village during the height of the storm during the morning and early afternoon hours on the 9th. Five power poles were knocked down in the storm EVENT NARRATIVE: 
-## 902297:                           EPISODE NARRATIVE: An intense upper level low developed on the 28th at the base of a highly amplified upper trough across the Great Lakes and Mississippi Valley.  The upper low closed off over the mid South and tracked northeast across the Tennessee Valley during the morning of the 29th.   A warm conveyor belt of heavy rainfall developed in advance of the low which dumped from around 2 to over 5 inches of rain across the eastern two thirds of north Alabama and middle Tennessee.  The highest rain amounts were recorded in Jackson and DeKalb Counties with 3 to 5 inches.  The rain fell over 24 to 36 hour period, with rainfall remaining light to moderate during most its duration.  The rainfall resulted in minor river flooding along the Little River, Big Wills Creek and Paint Rock.   A landslide occurred on Highway 35 just north of Section in Jackson County.  A driver was trapped in his vehicle, but was rescued unharmed.  Trees, boulders and debris blocked 100 to 250 yards of Highway 35.\n\nThe rain mixed with and changed to snow across north Alabama during the afternoon and  evening hours of the 28th, and lasted into the 29th.  The heaviest bursts of snow occurred in northwest Alabama during the afternoon and evening hours, and in north central and northeast Alabama during the overnight and morning hours.  Since ground temperatures were in the 50s, and air temperatures in valley areas only dropped into the mid 30s, most of the snowfall melted on impact with mostly trace amounts reported in valley locations.  However, above 1500 foot elevation, snow accumulations of 1 to 2 inches were reported.  The heaviest amount was 2.3 inches on Monte Sano Mountain, about 5 miles northeast of Huntsville.EVENT NARRATIVE: Snowfall accumulations of up to 2.3 inches were reported on the higher elevations of eastern Madison County.  A snow accumulation of 1.5 inches was reported 2.7 miles south of Gurley, while 2.3 inches was reported 3 miles east of Huntsville atop Monte Sano Mountain.
-##         REFNUM      r
-##      1:      1      1
-##      2:      2      2
-##      3:      3      3
-##      4:      4      4
-##      5:      5      5
-##     ---              
-## 902293: 902293 902293
-## 902294: 902294 902294
-## 902295: 902295 902295
-## 902296: 902296 902296
-## 902297: 902297 902297
-```
 
+This next step summarizes all of the data for our calculations. It will take a total and average for the statistics we are interested in: Damage as measured by Cost (USD), Fatalities, and Injuries.
 
 ```r
 #cost
@@ -406,4 +95,195 @@ data.by.type <- data[,
                          .N),
                      by=EVTYPE]
 setnames(data.by.type, c('EVTYPE','SUMDMG','AVGDMG','SUMINJ', 'AVGINJ', 'SUMFAT', 'AVGFAT', 'COUNT'))
+# Display a small representation of the table we've built
+data.by.type
 ```
+
+```
+##                        EVTYPE      SUMDMG AVGDMG SUMINJ AVGINJ SUMFAT
+##   1:                  TORNADO 57352114049 945593  91346    1.5   5633
+##   2:                TSTM WIND  5038935845  22911   6957    0.0    504
+##   3:                     HAIL 18757855433  64982   1361    0.0     15
+##   4:            FREEZING RAIN     8111500  32446     23    0.1      7
+##   5:                     SNOW    14772550  25166     29    0.0      5
+##  ---                                                                 
+## 981:          LAKESHORE FLOOD     7540000 327826      0    0.0      0
+## 982: MARINE THUNDERSTORM WIND      486400     84     26    0.0     10
+## 983:       MARINE STRONG WIND      418330   8715     22    0.5     14
+## 984:    ASTRONOMICAL LOW TIDE      320000   1839      0    0.0      0
+## 985:         VOLCANIC ASHFALL           0      0      0    0.0      0
+##      AVGFAT  COUNT
+##   1:    0.1  60652
+##   2:    0.0 219940
+##   3:    0.0 288661
+##   4:    0.0    250
+##   5:    0.0    587
+##  ---              
+## 981:    0.0     23
+## 982:    0.0   5812
+## 983:    0.3     48
+## 984:    0.0    174
+## 985:    0.0      3
+```
+
+# Results of the Analysis
+### Damage as measured by Cost (USD)
+
+Below you'll see the code used to generate a Figure that details the 5 most Costly weather events from our dataset. I've shown 2 plots here, one that shows the highest by **total** and one that shows the highest by **average**. This shows that there is a distinct difference between these two figures.
+
+```r
+# Order the data by total damage
+data.by.type <- data.by.type[order(-SUMDMG),]
+# Plot the 5 highest costing event types, by total cost, as a horizontal bar plot
+# This first figure also includes point data to show the huge range of outliers versus
+# the relatively small range of the bulk of the population.
+total.figure <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, SUMDMG, fill=EVTYPE)) +
+    # define this as a bar plot of identities (ie not a histogram)
+    geom_bar(stat="identity") +
+    #modify the x and y scales to show our data more clearly
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    scale_y_continuous(breaks=c(0,5e+10,1e+11,1.5e+11),labels=c(0,50,100,150)) +
+    #label each bar with the corresponding event type and total cost
+    geom_text(aes(EVTYPE,rep_len(min(data.by.type$SUMDMG),5),
+                  label=paste(EVTYPE, '-', '$', format(SUMDMG/1e+09, digits=3), 'B', sep=' ')),
+              hjust=0, vjust=2) +
+    #graph individual data to show the grouped population versus the outliers
+    geom_point(data=data[EVTYPE %in% data.by.type[5:1,EVTYPE]],
+               aes(EVTYPE, (PROPDMG+CROPDMG), fill=EVTYPE), shape=23,
+               alpha=0.75, position=position_jitter(height=.5, width=0)) +    
+    # label the plot, color and fill bars
+    labs(title='Highest Total Costs') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    # flip the x and y coordinates to make this plot horizontal.
+    coord_flip()
+
+# Same plot as above, but uses averages instead of totals.
+data.by.type <- data.by.type[order(-AVGDMG),]
+avg.figure <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, AVGDMG, fill=EVTYPE)) +
+    geom_bar(stat="identity") +
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    scale_y_continuous(breaks=c(0,5e+08,1e+09,1.5e+09),labels=c(0,0.5,1.0,1.5)) +
+    geom_text(aes(EVTYPE,rep_len(min(data.by.type$AVGDMG),5),
+                  label=paste(EVTYPE, '-', '$', format(AVGDMG/1e+09, digits=3), 'B', sep=' ')),
+              hjust=0, vjust=2) +
+    labs(title='Highest Average Costs') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    coord_flip()
+# Use gridExtra library to display these two charts as one figure.
+grid.arrange(total.figure,
+             avg.figure,
+             ncol=1,
+             main=textGrob("Most Costly Weather Event Types - 1950 to 2011",
+                           gp=gpar(fontsize=20, fontface="bold"), just='top')
+)
+```
+
+![plot of chunk plot.cost](figure/plot.cost-1.png) 
+
+You can see from these plots that there is a HUGE difference between the totals and the averages. We can see from the first chart that the total damage caused by Flooding since 1950 is *considerably* higher than the next weather event type on the list. However, when we look at the second chart we can see that "Flood" isn't even on the top five when averaged out per event.  
+
+So which type of Weather Event should you prepare for? Regardles of the specific types it seems that **water damage* is a common factor both in the totals chart and the averages chart. Flooding can often be a secondary effect of other weather event types. The only common specific type between these two charts is **Hurricane/Typhoon** - a weather event that generates huge amount of precipitation and often causes flooding. I would put a large portion of any Disaster Planning budget into mitigating the devestating effects of water on agricultural and residential property.
+
+### Damage as measured by Fatalities and Injuries  
+
+We will once again see these statistics as totals and averages separately to illustrate the differences.
+
+```r
+# Total Injuries
+data.by.type <- data.by.type[order(-SUMINJ),]
+total.inj <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, SUMINJ, fill=EVTYPE)) +
+    geom_bar(stat="identity") +
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    #scale_y_continuous(breaks=c(0,5e+10,1e+11,1.5e+11),labels=c(0,50,100,150)) +
+    geom_text(aes(EVTYPE,rep_len(0,5),label=paste(EVTYPE, SUMINJ, sep=' - ')),
+              hjust=0, vjust=2) +
+    #geom_point(data=data[EVTYPE %in% data.by.type[1:5,EVTYPE]],
+     #          aes(EVTYPE, (INJURIES), fill=EVTYPE), shape=23,
+      #         alpha=0.75, position=position_jitter(height=.5, width=0)) +    
+    labs(title='Highest Total Injuries') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    coord_flip()
+
+# Average Injuries
+data.by.type <- data.by.type[order(-AVGINJ),]
+avg.inj <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, AVGINJ, fill=EVTYPE)) +
+    geom_bar(stat="identity") +
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    scale_y_continuous(breaks=c(0,5e+08,1e+09,1.5e+09),labels=c(0,0.5,1.0,1.5)) +
+    geom_text(aes(EVTYPE,rep_len(0,5),label=paste(EVTYPE, AVGINJ, sep=' - ')),
+              hjust=0, vjust=2) +
+    labs(title='Highest Average Injuries') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    coord_flip()
+
+# Total fatalities
+data.by.type <- data.by.type[order(-SUMFAT),]
+total.fat <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, SUMFAT, fill=EVTYPE)) +
+    geom_bar(stat="identity") +
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    #scale_y_continuous(breaks=c(0,5e+10,1e+11,1.5e+11),labels=c(0,50,100,150)) +
+    geom_text(aes(EVTYPE,rep_len(0,5),label=paste(EVTYPE, SUMFAT, sep=' - ')),
+              hjust=0, vjust=2) +
+    #geom_point(data=data[EVTYPE %in% data.by.type[1:5,EVTYPE]],
+    #          aes(EVTYPE, (INJURIES), fill=EVTYPE), shape=23,
+    #         alpha=0.75, position=position_jitter(height=.5, width=0)) +    
+    labs(title='Highest Total Fatalities') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    coord_flip()
+
+# Average Fatalities
+data.by.type <- data.by.type[order(-AVGFAT),]
+avg.fat <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, AVGFAT, fill=EVTYPE)) +
+    geom_bar(stat="identity") +
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    scale_y_continuous(breaks=c(0,5e+08,1e+09,1.5e+09),labels=c(0,0.5,1.0,1.5)) +
+    geom_text(aes(EVTYPE,rep_len(0,5),label=paste(EVTYPE, AVGFAT, sep=' - ')),
+              hjust=0, vjust=2) +
+    labs(title='Highest Average Fatalities') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    coord_flip()
+
+# Plot all four charts in a figure
+grid.arrange(total.inj,
+             avg.inj,
+             total.fat,
+             avg.fat,
+             ncol=2,
+             main=textGrob("Most Dangerous Weather Event Types - 1950 to 2011",
+                           gp=gpar(fontsize=20, fontface="bold"), just='top')
+)
+```
+
+![plot of chunk plot.health](figure/plot.health-1.png) 
+
+Here, again, you can see that there are huge discrepencies between a look into the **total** harm done and the **average** harm done as measured separately in fatalities and non-fatal injuries. These charts, however, show some crossover between them. **Tornadoes** and related weather events are represented in some way on every chart, as are **heat** related injuries. In terms of the human cost to weather it would seem that injury most often arises from wind-swept debris or from extreme elements such as heat or cold.

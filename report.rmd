@@ -1,7 +1,8 @@
-```{r, setoptions,echo=FALSE}
+```{r, setoptions,echo=FALSE, results='hide'}
 library(knitr)
+library(gridExtra)
+library(ggplot2)
 opts_chunk$set(echo = TRUE)
-use.cache=TRUE
 ```
 Impact of Hydro-Meteorological Events
 =====================================
@@ -39,7 +40,7 @@ turning that `data.frame` into a `data.table`. This is because there is a known 
 tracked bug when using `fread` to read .csv files that have irregular usage of commas
 inside escaped blocks of text. That being said, the method below only takes a fractional
 amount of time more and will yeild considerably faster processing below:  
-```{r read.data, cache=use.cache, results='hold'}
+```{r read.data, cache=TRUE, results='hold'}
 library(data.table)
 data <- data.table(read.csv('stormdata.csv'))
 ```
@@ -49,7 +50,7 @@ the data that corresponds with the fiscal impact of an event into whole numbers.
 Having seen the original data, there seems to be some mis-translation of the original
 numbers into the form our current csv file has. We will be doing our best to accomodate
 and take only what we know for certain at face value:  
-```{r process.dmg, cache=use.cache, results='hide'}
+```{r process.dmg, cache=TRUE, results='hide', dependson=c('read.data')}
 # First we'll give ourselves something like a row number to work our data with
 data[,r:=1:.N]
 
@@ -93,7 +94,9 @@ data[,CROPDMG:={
 },by=r]
 ```
 
-```{r summarize.data, cache=use.cache}
+
+This next step summarizes all of the data for our calculations. It will take a total and average for the statistics we are interested in: Damage as measured by Cost (USD), Fatalities, and Injuries.
+```{r summarize.data, cache=TRUE, dependson=c('read.data', 'process.dmg')}
 #cost
 # Calculate total and average data for each of the following statistics
 # Damage (in dollars), Injuries (# people), Fatalities (# people)
@@ -108,4 +111,154 @@ data.by.type <- data[,
                          .N),
                      by=EVTYPE]
 setnames(data.by.type, c('EVTYPE','SUMDMG','AVGDMG','SUMINJ', 'AVGINJ', 'SUMFAT', 'AVGFAT', 'COUNT'))
+# Display a small representation of the table we've built
+data.by.type
 ```
+
+# Results of the Analysis
+### Damage as measured by Cost (USD)
+
+Below you'll see the code used to generate a Figure that details the 5 most Costly weather events from our dataset. I've shown 2 plots here, one that shows the highest by **total** and one that shows the highest by **average**. This shows that there is a distinct difference between these two figures.
+```{r plot.cost, cache=TRUE, dependson=c('summarize.data'), fig.height=10, fig.width=10}
+# Order the data by total damage
+data.by.type <- data.by.type[order(-SUMDMG),]
+# Plot the 5 highest costing event types, by total cost, as a horizontal bar plot
+# This first figure also includes point data to show the huge range of outliers versus
+# the relatively small range of the bulk of the population.
+total.figure <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, SUMDMG, fill=EVTYPE)) +
+    # define this as a bar plot of identities (ie not a histogram)
+    geom_bar(stat="identity") +
+    #modify the x and y scales to show our data more clearly
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    scale_y_continuous(breaks=c(0,5e+10,1e+11,1.5e+11),labels=c(0,50,100,150)) +
+    #label each bar with the corresponding event type and total cost
+    geom_text(aes(EVTYPE,rep_len(min(data.by.type$SUMDMG),5),
+                  label=paste(EVTYPE, '-', '$', format(SUMDMG/1e+09, digits=3), 'B', sep=' ')),
+              hjust=0, vjust=2) +
+    #graph individual data to show the grouped population versus the outliers
+    geom_point(data=data[EVTYPE %in% data.by.type[5:1,EVTYPE]],
+               aes(EVTYPE, (PROPDMG+CROPDMG), fill=EVTYPE), shape=23,
+               alpha=0.75, position=position_jitter(height=.5, width=0)) +    
+    # label the plot, color and fill bars
+    labs(title='Highest Total Costs') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    # flip the x and y coordinates to make this plot horizontal.
+    coord_flip()
+
+# Same plot as above, but uses averages instead of totals.
+data.by.type <- data.by.type[order(-AVGDMG),]
+avg.figure <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, AVGDMG, fill=EVTYPE)) +
+    geom_bar(stat="identity") +
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    scale_y_continuous(breaks=c(0,5e+08,1e+09,1.5e+09),labels=c(0,0.5,1.0,1.5)) +
+    geom_text(aes(EVTYPE,rep_len(min(data.by.type$AVGDMG),5),
+                  label=paste(EVTYPE, '-', '$', format(AVGDMG/1e+09, digits=3), 'B', sep=' ')),
+              hjust=0, vjust=2) +
+    labs(title='Highest Average Costs') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    coord_flip()
+# Use gridExtra library to display these two charts as one figure.
+grid.arrange(total.figure,
+             avg.figure,
+             ncol=1,
+             main=textGrob("Most Costly Weather Event Types - 1950 to 2011",
+                           gp=gpar(fontsize=20, fontface="bold"), just='top')
+)
+```
+
+You can see from these plots that there is a HUGE difference between the totals and the averages. We can see from the first chart that the total damage caused by Flooding since 1950 is *considerably* higher than the next weather event type on the list. However, when we look at the second chart we can see that "Flood" isn't even on the top five when averaged out per event.  
+
+So which type of Weather Event should you prepare for? Regardles of the specific types it seems that **water damage** is a common factor both in the totals chart and the averages chart. Flooding can often be a secondary effect of other weather event types. The only common specific type between these two charts is **Hurricane/Typhoon** - a weather event that generates huge amount of precipitation and often causes flooding. I would put a large portion of any Disaster Planning budget into mitigating the devestating effects of water on agricultural and residential property.
+
+### Damage as measured by Fatalities and Injuries  
+
+We will once again see these statistics as totals and averages separately to illustrate the differences.
+```{r plot.health, cache=TRUE, dependson=c('summarize.data'), fig.height=12, fig.width=12}
+# Total Injuries
+data.by.type <- data.by.type[order(-SUMINJ),]
+total.inj <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, SUMINJ, fill=EVTYPE)) +
+    geom_bar(stat="identity") +
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    geom_text(aes(EVTYPE,rep_len(0,5),label=paste(EVTYPE, SUMINJ, sep=' - ')),
+              hjust=0, vjust=2) +
+    labs(title='Highest Total Injuries') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    coord_flip()
+
+# Average Injuries
+data.by.type <- data.by.type[order(-AVGINJ),]
+avg.inj <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, AVGINJ, fill=EVTYPE)) +
+    geom_bar(stat="identity") +
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    scale_y_continuous(breaks=c(0,5e+08,1e+09,1.5e+09),labels=c(0,0.5,1.0,1.5)) +
+    geom_text(aes(EVTYPE,rep_len(0,5),label=paste(EVTYPE, AVGINJ, sep=' - ')),
+              hjust=0, vjust=2) +
+    labs(title='Highest Average Injuries') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    coord_flip()
+
+# Total fatalities
+data.by.type <- data.by.type[order(-SUMFAT),]
+total.fat <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, SUMFAT, fill=EVTYPE)) +
+    geom_bar(stat="identity") +
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    geom_text(aes(EVTYPE,rep_len(0,5),label=paste(EVTYPE, SUMFAT, sep=' - ')),
+              hjust=0, vjust=2) +
+    labs(title='Highest Total Fatalities') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    coord_flip()
+
+# Average Fatalities
+data.by.type <- data.by.type[order(-AVGFAT),]
+avg.fat <- ggplot(data=data.by.type[5:1,],aes(EVTYPE, AVGFAT, fill=EVTYPE)) +
+    geom_bar(stat="identity") +
+    scale_x_discrete(limits=data.by.type[5:1,EVTYPE]) +
+    scale_y_continuous(breaks=c(0,5e+08,1e+09,1.5e+09),labels=c(0,0.5,1.0,1.5)) +
+    geom_text(aes(EVTYPE,rep_len(0,5),label=paste(EVTYPE, AVGFAT, sep=' - ')),
+              hjust=0, vjust=2) +
+    labs(title='Highest Average Fatalities') +
+    theme_bw() +
+    theme(plot.title=element_text(vjust=1, face='bold', size='16'),
+          axis.title=element_blank(),
+          axis.text=element_blank(),
+          axis.ticks=element_blank()) + 
+    guides(fill=F) +
+    coord_flip()
+
+# Plot all four charts in a figure
+grid.arrange(total.inj,
+             avg.inj,
+             total.fat,
+             avg.fat,
+             ncol=2,
+             main=textGrob("Most Dangerous Weather Event Types - 1950 to 2011",
+                           gp=gpar(fontsize=20, fontface="bold"), just='top')
+)
+```
+
+Here, again, you can see that there are huge discrepencies between a look into the **total** harm done and the **average** harm done as measured separately in fatalities and non-fatal injuries. These charts, however, show some crossover between them. **Tornadoes** and related weather events are represented in some way on every chart, as are **heat** related injuries. In terms of the human cost to weather it would seem that injury most often arises from wind-swept debris or from extreme elements such as heat or cold.
