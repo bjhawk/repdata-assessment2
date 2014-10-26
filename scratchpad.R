@@ -1,6 +1,13 @@
 file.url <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
+# if file doesn't exist
+#download.file(file.url, 'stormdata.csv.bz2')
 
-system("bunzip2 stormdata.csv.bz2")
+#if linux
+#system("bunzip2 stormdata.csv.bz2")
+
+#if windows
+#library(R.utils)
+#bunzip2("stormdata.csv.bz2")
 
 # I hate doing this but there is something preventing fread() from working -
 # it's a tracked issue - see https://github.com/Rdatatable/data.table)
